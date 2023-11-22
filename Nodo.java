@@ -97,4 +97,8 @@ class ListaDoblementeEnlazada {
             actual = actual.anterior;
         }
     }
+
+    public boolean estaVacia() {
+        return primero == null;
+    }
 }
