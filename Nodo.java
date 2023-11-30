@@ -1,5 +1,5 @@
-import java.util.Scanner;
 
+import java.util.Scanner;
 
 class Nodo {
     String valor;
@@ -38,7 +38,7 @@ class ListaDoblementeEnlazada {
                 ultimo.siguiente = nuevoNodo;
                 ultimo = nuevoNodo;
             } else {
-                if (actual.anterior == null) {1
+                if (actual.anterior == null) {
                     nuevoNodo.siguiente = primero;
                     primero.anterior = nuevoNodo;
                     primero = nuevoNodo;
