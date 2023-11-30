@@ -1,6 +1,7 @@
 
 import java.util.Scanner;
 
+
 class Nodo {
     String valor;
     Nodo anterior;
@@ -73,23 +74,23 @@ class ListaDoblementeEnlazada {
         }
     }
 
-    public boolean buscar(String valor, boolean buscarDesdeFinal) {
+    public boolean buscar(String valor, char inicial) {
         Nodo actual;
-        if (buscarDesdeFinal) {
-            actual = ultimo;
-            while (actual != null && valor.compareToIgnoreCase(actual.valor) <= 0) {
-                if (actual.valor.equalsIgnoreCase(valor)) {
-                    return true;
-                }
-                actual = actual.anterior;
-            }
-        } else {
+        if (inicial == 'p' || inicial == 'P') {
             actual = primero;
-            while (actual != null && valor.compareToIgnoreCase(actual.valor) >= 0) {
+            while (actual != null && valor.compareToIgnoreCase(actual.valor) >= 0 && actual.valor.compareToIgnoreCase("j") <= 0) {
                 if (actual.valor.equalsIgnoreCase(valor)) {
                     return true;
                 }
                 actual = actual.siguiente;
+            }
+        } else if (inicial == 'm' || inicial == 'M') {
+            actual = ultimo;
+            while (actual != null && valor.compareToIgnoreCase(actual.valor) <= 0 && actual.valor.compareToIgnoreCase("j") > 0) {
+                if (actual.valor.equalsIgnoreCase(valor)) {
+                    return true;
+                }
+                actual = actual.anterior;
             }
         }
         return false;

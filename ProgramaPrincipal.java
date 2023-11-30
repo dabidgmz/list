@@ -52,11 +52,8 @@ public class ProgramaPrincipal {
                     case 4:
                         System.out.print("Ingrese la cadena a buscar: ");
                         String cadenaBuscar = scanner.nextLine();
-                        boolean buscarDesdeFinal = false;
-                        if (cadenaBuscar.length() > 0) {
-                            buscarDesdeFinal = cadenaBuscar.charAt(0) == 'm' || cadenaBuscar.charAt(0) == 'M';
-                        }
-                        if (lista.buscar(cadenaBuscar, buscarDesdeFinal)) {
+                        char inicial = cadenaBuscar.length() > 0 ? cadenaBuscar.charAt(0) : ' '; // Espacio por defecto
+                        if (lista.buscar(cadenaBuscar, inicial)) {
                             System.out.println("La cadena fue encontrada en la lista.");
                         } else {
                             System.out.println("La cadena no fue encontrada en la lista.");
@@ -71,7 +68,7 @@ public class ProgramaPrincipal {
                     case 6:
                         System.out.print("Ingrese la cadena a eliminar: ");
                         String cadenaEliminar = scanner.nextLine();
-                        if (lista.buscar(cadenaEliminar, false)) {
+                        if (lista.buscar(cadenaEliminar, ' ')) {
                             lista.eliminar(cadenaEliminar);
                             System.out.println("Cadena eliminada con éxito.");
                         } else {
@@ -83,7 +80,7 @@ public class ProgramaPrincipal {
                         String cadenaModificar = scanner.nextLine();
                         System.out.print("Ingrese la nueva cadena: ");
                         String nuevaCadena = scanner.nextLine();
-                        if (lista.buscar(cadenaModificar, false)) {
+                        if (lista.buscar(cadenaModificar, ' ')) {
                             lista.eliminar(cadenaModificar);
                             lista.insertar(nuevaCadena);
                             System.out.println("Cadena modificada con éxito.");
