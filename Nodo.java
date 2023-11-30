@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 
 class Nodo {
     String valor;
@@ -22,13 +24,12 @@ class ListaDoblementeEnlazada {
 
     public void insertar(String valor) {
         Nodo nuevoNodo = new Nodo(valor);
-
         if (primero == null) {
             primero = nuevoNodo;
             ultimo = nuevoNodo;
         } else {
             Nodo actual = primero;
-            while (actual != null && valor.compareToIgnoreCase(actual.valor) >= 0) {
+            while (actual != null && valor.compareToIgnoreCase(actual.valor) > 0) {
                 actual = actual.siguiente;
             }
 
@@ -36,15 +37,17 @@ class ListaDoblementeEnlazada {
                 nuevoNodo.anterior = ultimo;
                 ultimo.siguiente = nuevoNodo;
                 ultimo = nuevoNodo;
-            } else if (actual.anterior == null) {
-                nuevoNodo.siguiente = primero;
-                primero.anterior = nuevoNodo;
-                primero = nuevoNodo;
             } else {
-                nuevoNodo.siguiente = actual;
-                nuevoNodo.anterior = actual.anterior;
-                actual.anterior.siguiente = nuevoNodo;
-                actual.anterior = nuevoNodo;
+                if (actual.anterior == null) {1
+                    nuevoNodo.siguiente = primero;
+                    primero.anterior = nuevoNodo;
+                    primero = nuevoNodo;
+                } else {
+                    nuevoNodo.siguiente = actual;
+                    nuevoNodo.anterior = actual.anterior;
+                    actual.anterior.siguiente = nuevoNodo;
+                    actual.anterior = nuevoNodo;
+                }
             }
         }
     }
@@ -54,7 +57,6 @@ class ListaDoblementeEnlazada {
         while (actual != null && !actual.valor.equalsIgnoreCase(valor)) {
             actual = actual.siguiente;
         }
-
         if (actual != null) {
             if (actual == primero) {
                 primero = actual.siguiente;
@@ -71,13 +73,24 @@ class ListaDoblementeEnlazada {
         }
     }
 
-    public boolean buscar(String valor) {
-        Nodo actual = primero;
-        while (actual != null && valor.compareToIgnoreCase(actual.valor) >= 0) {
-            if (actual.valor.equalsIgnoreCase(valor)) {
-                return true;
+    public boolean buscar(String valor, boolean buscarDesdeFinal) {
+        Nodo actual;
+        if (buscarDesdeFinal) {
+            actual = ultimo;
+            while (actual != null && valor.compareToIgnoreCase(actual.valor) <= 0) {
+                if (actual.valor.equalsIgnoreCase(valor)) {
+                    return true;
+                }
+                actual = actual.anterior;
             }
-            actual = actual.siguiente;
+        } else {
+            actual = primero;
+            while (actual != null && valor.compareToIgnoreCase(actual.valor) >= 0) {
+                if (actual.valor.equalsIgnoreCase(valor)) {
+                    return true;
+                }
+                actual = actual.siguiente;
+            }
         }
         return false;
     }
