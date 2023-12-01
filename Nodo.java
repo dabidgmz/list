@@ -1,118 +1,181 @@
-
 import java.util.Scanner;
 
-
 class Nodo {
-    String valor;
-    Nodo anterior;
-    Nodo siguiente;
+    public String dato;
+    public Nodo anterior;
+    public Nodo siguiente;
 
-    public Nodo(String valor) {
-        this.valor = valor;
+    public Nodo(String dato) {
+        this.dato = dato;
         this.anterior = null;
         this.siguiente = null;
     }
 }
 
-class ListaDoblementeEnlazada {
-    private Nodo primero;
-    private Nodo ultimo;
+class ListaDobleEnlazada {
+    private Nodo P; 
+    private Nodo F; 
 
-    public ListaDoblementeEnlazada() {
-        primero = null;
-        ultimo = null;
+    public ListaDobleEnlazada() {
+        P = null;
+        F = null;
     }
 
-    public void insertar(String valor) {
-        Nodo nuevoNodo = new Nodo(valor);
-        if (primero == null) {
-            primero = nuevoNodo;
-            ultimo = nuevoNodo;
-        } else {
-            Nodo actual = primero;
-            while (actual != null && valor.compareToIgnoreCase(actual.valor) > 0) {
+    public void inicializarLista() {
+        P = null;
+        F = null;
+        System.gc(); 
+    }
+
+    public void mostrarListaAscendente() {
+        mostrarLista(1);
+    }
+
+    public void mostrarListaDescendente() {
+        mostrarLista(2);
+    }
+
+    private void mostrarLista(int orden) {
+        if (P == null) {
+            System.out.println("La lista está vacía");
+            return;
+        }
+
+        System.out.println("Lista en cuestion:");
+        if (orden == 1) {
+            Nodo actual = P;
+            while (actual != null) {
+                System.out.println(actual.dato);
                 actual = actual.siguiente;
             }
-
-            if (actual == null) {
-                nuevoNodo.anterior = ultimo;
-                ultimo.siguiente = nuevoNodo;
-                ultimo = nuevoNodo;
-            } else {
-                if (actual.anterior == null) {
-                    nuevoNodo.siguiente = primero;
-                    primero.anterior = nuevoNodo;
-                    primero = nuevoNodo;
-                } else {
-                    nuevoNodo.siguiente = actual;
-                    nuevoNodo.anterior = actual.anterior;
-                    actual.anterior.siguiente = nuevoNodo;
-                    actual.anterior = nuevoNodo;
-                }
+        } else if (orden == 2) {
+            Nodo actual = F;
+            while (actual != null) {
+                System.out.println(actual.dato);
+                actual = actual.anterior;
             }
+        } else {
+            System.out.println("Opción no válida");
         }
     }
 
-    public void eliminar(String valor) {
-        Nodo actual = primero;
-        while (actual != null && !actual.valor.equalsIgnoreCase(valor)) {
-            actual = actual.siguiente;
+    public boolean buscar(String datoBuscar) {
+        if (P == null) {
+            System.out.println("No se pueden hacer búsquedas, lista vacía");
+            return false;
         }
-        if (actual != null) {
-            if (actual == primero) {
-                primero = actual.siguiente;
-                if (primero != null) {
-                    primero.anterior = null;
-                }
-            } else if (actual == ultimo) {
-                ultimo = actual.anterior;
-                ultimo.siguiente = null;
-            } else {
-                actual.anterior.siguiente = actual.siguiente;
-                actual.siguiente.anterior = actual.anterior;
-            }
-        }
-    }
 
-    public boolean buscar(String valor, char inicial) {
         Nodo actual;
-        if (inicial == 'p' || inicial == 'P') {
-            actual = primero;
-            while (actual != null && valor.compareToIgnoreCase(actual.valor) >= 0 && actual.valor.compareToIgnoreCase("j") <= 0) {
-                if (actual.valor.equalsIgnoreCase(valor)) {
+
+        if (datoBuscar.compareToIgnoreCase(P.dato) >= 0 && datoBuscar.compareToIgnoreCase(F.dato) <= 0) {
+            actual = P;
+            while (actual != null) {
+                if (actual.dato.equalsIgnoreCase(datoBuscar)) {
+                    System.out.println("La cadena \"" + datoBuscar + "\" fue encontrada en la lista.");
                     return true;
                 }
                 actual = actual.siguiente;
             }
-        } else if (inicial == 'm' || inicial == 'M') {
-            actual = ultimo;
-            while (actual != null && valor.compareToIgnoreCase(actual.valor) <= 0 && actual.valor.compareToIgnoreCase("j") > 0) {
-                if (actual.valor.equalsIgnoreCase(valor)) {
+        } else if (datoBuscar.compareToIgnoreCase(F.dato) >= 0 && datoBuscar.compareToIgnoreCase(P.dato) <= 0) {
+            actual = F;
+            while (actual != null) {
+                if (actual.dato.equalsIgnoreCase(datoBuscar)) {
+                    System.out.println("La cadena \"" + datoBuscar + "\" fue encontrada en la lista.");
                     return true;
                 }
                 actual = actual.anterior;
             }
+        } else {
+            System.out.println("La cadena \"" + datoBuscar + "\" no se encuentra en la lista.");
+            return false;
         }
+
+        System.out.println("La cadena \"" + datoBuscar + "\" no se encuentra en la lista.");
         return false;
     }
 
-    public void mostrarAscendente() {
-        Nodo actual = primero;
+    public void insertar(String nuevaCadena) {
+        Nodo nuevoNodo = new Nodo(nuevaCadena);
+
+        if (P == null) {
+            P = nuevoNodo;
+            F = nuevoNodo;
+        } else {
+            Nodo actual = P;
+            while (actual != null) {
+                if (nuevaCadena.compareToIgnoreCase(actual.dato) < 0) {
+                    if (actual.anterior == null) {
+                        nuevoNodo.siguiente = actual;
+                        actual.anterior = nuevoNodo;
+                        P = nuevoNodo;
+                    } else {
+                        nuevoNodo.anterior = actual.anterior;
+                        nuevoNodo.siguiente = actual;
+                        actual.anterior.siguiente = nuevoNodo;
+                        actual.anterior = nuevoNodo;
+                    }
+                    return;
+                } else if (nuevaCadena.compareToIgnoreCase(actual.dato) > 0) {
+                    if (actual.siguiente == null) {
+                        nuevoNodo.anterior = actual;
+                        actual.siguiente = nuevoNodo;
+                        F = nuevoNodo;
+                        return;
+                    }
+                    actual = actual.siguiente;
+                } else {
+                    nuevoNodo.siguiente = actual.siguiente;
+                    if (actual.siguiente != null) {
+                        actual.siguiente.anterior = nuevoNodo;
+                    }
+                    actual.siguiente = nuevoNodo;
+                    nuevoNodo.anterior = actual;
+                    return;
+                }
+            }
+        }
+    }
+
+    public boolean eliminar(String cadenaEliminar) {
+        if (P == null) {
+            System.out.println("La lista está vacía. No se puede eliminar nada");
+            return false;
+        }
+
+        Nodo actual = P;
         while (actual != null) {
-            System.out.println(actual.valor);
+            if (actual.dato.equalsIgnoreCase(cadenaEliminar)) {
+                if (actual.anterior == null) {
+                    if (actual.siguiente != null) {
+                        actual.siguiente.anterior = null;
+                        P = actual.siguiente;
+                    } else {
+                        P = null;
+                        F = null;
+                    }
+                } else if (actual.siguiente == null) {
+                    actual.anterior.siguiente = null;
+                    F = actual.anterior;
+                } else {
+                    actual.anterior.siguiente = actual.siguiente;
+                    actual.siguiente.anterior = actual.anterior;
+                }
+
+                System.out.println("La cadena \"" + cadenaEliminar + "\" ha sido eliminada.");
+                return true;
+            }
             actual = actual.siguiente;
         }
+
+        System.out.println("La cadena \"" + cadenaEliminar + "\" no se encuentra en la lista. No se puede eliminar.");
+        return false;
     }
 
-    public void mostrarDescendente() {
-        Nodo actual = ultimo;
-        while (actual != null) {
-            System.out.println(actual.valor);
-            actual = actual.anterior;
+    public void modificar(String cadenaModificar, String nuevaCadena) {
+        boolean eliminado = eliminar(cadenaModificar);
+        if (eliminado) {
+            insertar(nuevaCadena);
+            System.out.println("La cadena \"" + cadenaModificar + "\" ha sido modificada por \"" + nuevaCadena + "\".");
         }
-    }
-
-    public boolean estaVacia() {
-        return primero == null;
     }
 }
