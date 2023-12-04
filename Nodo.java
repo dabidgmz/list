@@ -27,11 +27,11 @@ class ListaDobleEnlazada {
         System.gc(); 
     }
 
-    public void mostrarListaAscendente() {
+    public void mostrarAscendente() {
         mostrarLista(1);
     }
 
-    public void mostrarListaDescendente() {
+    public void mostrarDescendente() {
         mostrarLista(2);
     }
 
@@ -41,7 +41,7 @@ class ListaDobleEnlazada {
             return;
         }
 
-        System.out.println("Lista en cuestion:");
+        System.out.println("Soy la lista:");
         if (orden == 1) {
             Nodo actual = P;
             while (actual != null) {
@@ -61,7 +61,7 @@ class ListaDobleEnlazada {
 
     public boolean buscar(String datoBuscar) {
         if (P == null) {
-            System.out.println("No se pueden hacer búsquedas, lista vacía");
+            System.out.println(" lista vacía");
             return false;
         }
 
@@ -71,7 +71,7 @@ class ListaDobleEnlazada {
             actual = P;
             while (actual != null) {
                 if (actual.dato.equalsIgnoreCase(datoBuscar)) {
-                    System.out.println("La cadena \"" + datoBuscar + "\" fue encontrada en la lista.");
+                    System.out.println("cadena" + datoBuscar + "\" fue encontrada en la lista.");
                     return true;
                 }
                 actual = actual.siguiente;
@@ -80,17 +80,52 @@ class ListaDobleEnlazada {
             actual = F;
             while (actual != null) {
                 if (actual.dato.equalsIgnoreCase(datoBuscar)) {
-                    System.out.println("La cadena \"" + datoBuscar + "\" fue encontrada en la lista.");
+                    System.out.println("cadena \"" + datoBuscar + "\" fue encontrada en la lista.");
                     return true;
                 }
                 actual = actual.anterior;
             }
         } else {
-            System.out.println("La cadena \"" + datoBuscar + "\" no se encuentra en la lista.");
+            System.out.println(" cadena \"" + datoBuscar + "\" no se encuentra en la lista.");
             return false;
         }
 
-        System.out.println("La cadena \"" + datoBuscar + "\" no se encuentra en la lista.");
+        System.out.println(" cadena \"" + datoBuscar + "\" no se encuentra en la lista.");
+        return false;
+    }
+
+    public boolean eliminar(String cadenaEliminar) {
+        if (P == null) {
+            System.out.println("La lista está vacía");
+            return false;
+        }
+
+        Nodo actual = P;
+        while (actual != null) {
+            if (actual.dato.equalsIgnoreCase(cadenaEliminar)) {
+                if (actual.anterior == null) {
+                    if (actual.siguiente != null) {
+                        actual.siguiente.anterior = null;
+                        P = actual.siguiente;
+                    } else {
+                        P = null;
+                        F = null;
+                    }
+                } else if (actual.siguiente == null) {
+                    actual.anterior.siguiente = null;
+                    F = actual.anterior;
+                } else {
+                    actual.anterior.siguiente = actual.siguiente;
+                    actual.siguiente.anterior = actual.anterior;
+                }
+
+                System.out.println("cadena \"" + cadenaEliminar + "\" ha sido eliminada.");
+                return true;
+            }
+            actual = actual.siguiente;
+        }
+
+        System.out.println(" cadena \"" + cadenaEliminar + "\" no se encuentra en la lista. No se puede eliminar.");
         return false;
     }
 
@@ -136,46 +171,9 @@ class ListaDobleEnlazada {
         }
     }
 
-    public boolean eliminar(String cadenaEliminar) {
-        if (P == null) {
-            System.out.println("La lista está vacía. No se puede eliminar nada");
-            return false;
-        }
-
-        Nodo actual = P;
-        while (actual != null) {
-            if (actual.dato.equalsIgnoreCase(cadenaEliminar)) {
-                if (actual.anterior == null) {
-                    if (actual.siguiente != null) {
-                        actual.siguiente.anterior = null;
-                        P = actual.siguiente;
-                    } else {
-                        P = null;
-                        F = null;
-                    }
-                } else if (actual.siguiente == null) {
-                    actual.anterior.siguiente = null;
-                    F = actual.anterior;
-                } else {
-                    actual.anterior.siguiente = actual.siguiente;
-                    actual.siguiente.anterior = actual.anterior;
-                }
-
-                System.out.println("La cadena \"" + cadenaEliminar + "\" ha sido eliminada.");
-                return true;
-            }
-            actual = actual.siguiente;
-        }
-
-        System.out.println("La cadena \"" + cadenaEliminar + "\" no se encuentra en la lista. No se puede eliminar.");
-        return false;
-    }
-
     public void modificar(String cadenaModificar, String nuevaCadena) {
-        boolean eliminado = eliminar(cadenaModificar);
-        if (eliminado) {
-            insertar(nuevaCadena);
-            System.out.println("La cadena \"" + cadenaModificar + "\" ha sido modificada por \"" + nuevaCadena + "\".");
-        }
+        eliminar(cadenaModificar);
+        insertar(nuevaCadena);
+        System.out.println(" cadena \"" + cadenaModificar + "\" ha sido modificada por \"" + nuevaCadena + "\".");
     }
 }

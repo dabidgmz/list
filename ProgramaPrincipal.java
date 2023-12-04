@@ -1,5 +1,4 @@
-import java.util.Scanner;  // Import the Scanner class
-
+import java.util.Scanner;  
 public class ProgramaPrincipal {
 
     public static void main(String[] args) {
@@ -8,7 +7,7 @@ public class ProgramaPrincipal {
 
         int opcion;
         do {
-            System.out.println("Menú:");
+            System.out.println("----- Menú -----");
             System.out.println("1. Inicializar / Borrar Lista");
             System.out.println("2. Mostrar Lista (Ascendente)");
             System.out.println("3. Mostrar Lista (Descendente)");
@@ -27,10 +26,10 @@ public class ProgramaPrincipal {
                     System.out.println("Lista inicializada y borrada.");
                     break;
                 case 2:
-                    lista.mostrarListaAscendente();
+                    lista.mostrarAscendente();
                     break;
                 case 3:
-                    lista.mostrarListaDescendente();
+                    lista.mostrarDescendente();
                     break;
                 case 4:
                     System.out.print("Cadena a buscar: ");
@@ -57,13 +56,13 @@ public class ProgramaPrincipal {
                     break;
                 case 8:
                     System.out.println("Créditos:");
-                    System.out.println("Materia: Estructuras de Datos");
+                    System.out.println("Materia: Estructura de datos");
                     System.out.println("Integrantes del equipo:");
-                    System.out.println("Maria de los Angeles Rivera Villegas - 2103227");
-                    System.out.println("David Gomez Herrera - 22170035");
+                    System.out.println("David Gomez Herrera 22170035");
+                    System.out.println("Maria de los Angeles Rivera Villegas 21030227 ");
                     break;
                 case 9:
-                    System.out.println("Fin:)");
+                    System.out.println("saliendo....");
                     break;
                 default:
                     System.out.println("Opción no válida");
