@@ -7,7 +7,6 @@ public class ProgramaPrincipal {
 
         int opcion;
         do {
-            System.out.println("----- Menú -----");
             System.out.println("1. Inicializar / Borrar Lista");
             System.out.println("2. Mostrar Lista (Ascendente)");
             System.out.println("3. Mostrar Lista (Descendente)");

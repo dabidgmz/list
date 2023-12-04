@@ -174,6 +174,6 @@ class ListaDobleEnlazada {
     public void modificar(String cadenaModificar, String nuevaCadena) {
         eliminar(cadenaModificar);
         insertar(nuevaCadena);
-        System.out.println(" cadena \"" + cadenaModificar + "\" ha sido modificada por \"" + nuevaCadena + "\".");
+        System.out.println(" cadena : \"" + cadenaModificar + "\" ha sido modificada por \"" + nuevaCadena + "\".");
     }
 }
