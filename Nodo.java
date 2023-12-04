@@ -71,7 +71,7 @@ class ListaDobleEnlazada {
             actual = P;
             while (actual != null) {
                 if (actual.dato.equalsIgnoreCase(datoBuscar)) {
-                    System.out.println("cadena" + datoBuscar + "\" fue encontrada en la lista.");
+                    System.out.println("cadena   : " + datoBuscar + "\" fue encontrada en la lista.");
                     return true;
                 }
                 actual = actual.siguiente;
@@ -80,17 +80,17 @@ class ListaDobleEnlazada {
             actual = F;
             while (actual != null) {
                 if (actual.dato.equalsIgnoreCase(datoBuscar)) {
-                    System.out.println("cadena \"" + datoBuscar + "\" fue encontrada en la lista.");
+                    System.out.println("cadena   :  \"" + datoBuscar + "\" fue encontrada en la lista.");
                     return true;
                 }
                 actual = actual.anterior;
             }
         } else {
-            System.out.println(" cadena \"" + datoBuscar + "\" no se encuentra en la lista.");
+            System.out.println(" cadena   : \"" + datoBuscar + "\" no se encuentra en la lista.");
             return false;
         }
 
-        System.out.println(" cadena \"" + datoBuscar + "\" no se encuentra en la lista.");
+        System.out.println(" cadena :  \"" + datoBuscar + "\" no se encuentra en la lista.");
         return false;
     }
 
@@ -125,7 +125,7 @@ class ListaDobleEnlazada {
             actual = actual.siguiente;
         }
 
-        System.out.println(" cadena \"" + cadenaEliminar + "\" no se encuentra en la lista. No se puede eliminar.");
+        System.out.println(" cadena  : \"" + cadenaEliminar + "\" no se encuentra en la lista. No se puede eliminar.");
         return false;
     }
 
