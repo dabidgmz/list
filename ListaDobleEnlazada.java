@@ -82,7 +82,7 @@ public class ListaDobleEnlazada {
     private boolean insertar(String dato) {
         String abecedario = "abcdefghijklmnñopqrstuvwxyz";
         int mitadAbecedario = abecedario.length() / 2;
-        int posicionDato = abecedario.indexOf(Character.toLowerCase(dato.charAt(0)));¿
+        int posicionDato = abecedario.indexOf(Character.toLowerCase(dato.charAt(0)));
         return posicionDato < mitadAbecedario;
     }
     public void mostrar(boolean ascendente) {
