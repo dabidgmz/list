@@ -1,10 +1,9 @@
-import java.util.Scanner;  
+import java.util.Scanner;
 public class ProgramaPrincipal {
 
     public static void main(String[] args) {
         ListaDobleEnlazada lista = new ListaDobleEnlazada();
         Scanner scanner = new Scanner(System.in);
-
         int opcion;
         do {
             System.out.println("1. Inicializar / Borrar Lista");
@@ -22,13 +21,12 @@ public class ProgramaPrincipal {
             switch (opcion) {
                 case 1:
                     lista.inicializarLista();
-                    System.out.println("Lista inicializada y borrada.");
                     break;
                 case 2:
-                    lista.mostrarAscendente();
+                    lista.mostrar(true);
                     break;
                 case 3:
-                    lista.mostrarDescendente();
+                    lista.mostrar(false);
                     break;
                 case 4:
                     System.out.print("Cadena a buscar: ");
@@ -38,8 +36,7 @@ public class ProgramaPrincipal {
                 case 5:
                     System.out.print("Nueva cadena a insertar: ");
                     String nuevaCadena = scanner.nextLine();
-                    lista.insertar(nuevaCadena);
-                    System.out.println("Cadena insertada correctamente.");
+                    lista.agregarElemento(nuevaCadena);
                     break;
                 case 6:
                     System.out.print("Cadena a eliminar: ");
@@ -61,14 +58,12 @@ public class ProgramaPrincipal {
                     System.out.println("Maria de los Angeles Rivera Villegas 21030227 ");
                     break;
                 case 9:
-                    System.out.println("saliendo....");
+                    System.out.println("Saliendo...");
                     break;
                 default:
                     System.out.println("Opción no válida");
             }
-
         } while (opcion != 9);
-
         scanner.close();
     }
 }
